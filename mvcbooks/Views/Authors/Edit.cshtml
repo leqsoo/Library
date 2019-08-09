@@ -1,0 +1,40 @@
+﻿@model mvcbooks.Data.Author
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Author</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="validateMessage" class="alert alert-danger" style="width:50%; margin:0 auto"></div>
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control checkEmpty" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" id="submit" onclick="return validateForEmpty();" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.Partial("_BackToListButtonPartial")
+</div>
+
+<script src="~/Scripts/emptyAuthorOrGenreOnUpdate.js"></script>

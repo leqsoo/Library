@@ -1,0 +1,36 @@
+﻿@model IEnumerable<mvcbooks.Data.Genre>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    @Html.Partial("_CreateButtonPartialGenre")
+</p>
+
+<h2 class="text-danger">
+    @TempData["ErrorMessage"]
+</h2>
+<table class="table table-responsive">
+
+    <tr>
+        <th>
+            @Html.DisplayName("Genres")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="small-font">
+                @Html.DisplayFor(modelItem => item.Genre_Name)
+            </td>
+            <td class="small-font">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "my-class btn btn-info btn-responsive" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Do you really want to delete this?');", @class = "my-class btn btn-danger btn-responsive" })
+            </td>
+        </tr>
+    }
+</table>
+

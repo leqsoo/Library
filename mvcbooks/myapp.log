@@ -1,0 +1,10 @@
+2019-07-03 16:17:35,596 [10] ERROR mvcbooks.Controllers.ReturnBookController - System.DivideByZeroException: Attempted to divide by zero.
+   at mvcbooks.Controllers.ReturnBookController.Log5Net() in C:\Users\User\Desktop\New folder (5)\library\mvcbooks\Controllers\ReturnBookController.cs:line 19
+2019-07-03 16:17:37,614 [8] ERROR mvcbooks.Controllers.ReturnBookController - System.DivideByZeroException: Attempted to divide by zero.
+   at mvcbooks.Controllers.ReturnBookController.Log5Net() in C:\Users\User\Desktop\New folder (5)\library\mvcbooks\Controllers\ReturnBookController.cs:line 19
+2019-07-03 16:17:39,199 [9] ERROR mvcbooks.Controllers.ReturnBookController - System.DivideByZeroException: Attempted to divide by zero.
+   at mvcbooks.Controllers.ReturnBookController.Log5Net() in C:\Users\User\Desktop\New folder (5)\library\mvcbooks\Controllers\ReturnBookController.cs:line 19
+2019-07-03 16:19:01,328 [8] ERROR mvcbooks.Controllers.ReturnBookController - System.DivideByZeroException: Attempted to divide by zero.
+   at mvcbooks.Controllers.ReturnBookController.ReturnBookList(String sortBy) in C:\Users\User\Desktop\New folder (5)\library\mvcbooks\Controllers\ReturnBookController.cs:line 26
+2019-07-03 16:19:09,787 [10] ERROR mvcbooks.Controllers.ReturnBookController - System.DivideByZeroException: Attempted to divide by zero.
+   at mvcbooks.Controllers.ReturnBookController.ReturnBookList(String sortBy) in C:\Users\User\Desktop\New folder (5)\library\mvcbooks\Controllers\ReturnBookController.cs:line 26

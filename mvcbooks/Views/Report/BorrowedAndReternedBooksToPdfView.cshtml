@@ -1,0 +1,31 @@
+﻿
+@using mvcbooks.Data
+@model List<BorrowedAndReternedBooks_Result>
+
+
+<h2>Borrowed And Reterned Books</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Year</th>
+            <th>Left Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr class="row-color">
+                <td>@book.Title</td>
+                <td>@book.First_Name</td>
+                <td>@book.Last_Name</td>
+                <td>@book.Year</td>
+                <td class="left-quantity">@book.Left_Quantity</td>
+                @Html.HiddenFor(bookTotalQuantity => book.Total_Quantity, new { @class = "total-quantity" })
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/colorMaker.js"></script>

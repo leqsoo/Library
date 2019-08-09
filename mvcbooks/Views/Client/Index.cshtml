@@ -1,0 +1,294 @@
+﻿@model mvcbooks.Models.ClientViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container-fluid">
+        <h4>Please Fill in the forms</h4>
+        <hr />
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.PersonalId, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group">
+                    @Html.EditorFor(model => model.PersonalId, new { htmlAttributes = new { @id = "personal_id", @autocomplete = "on", @type = "number", @min = "1", @minlength = "11", @maxlength = "11", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PersonalId, "", new { @class = "text-danger" })
+                    <span class="input-group-text btn btn-outline-secondary" id="checkId">&#x2714;</span>
+                </div>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.FirstName, new { @id = "firstname", @readonly = "readonly", @class = "input-group-text" })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group ">
+                    @Html.TextBoxFor(model => model.LastName, new { @id = "lastname", @readonly = "readonly", @class = "input-group-text" })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.Email, new { @id = "email", @readonly = "readonly", @class = "input-group-text" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.PhoneNumber, new { @id = "phone", @readonly = "readonly", @class = "input-group-text" })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.Address, new { @id = "address", @readonly = "readonly", @class = "input-group-text" })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col">
+                @*<button class="input-group-text btn text-danger" id="updateValues" data-toggle="modal" data-target="#exampleModalCenter">Update Fields</button>*@
+                <span class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter" id="updateValues">Update Fields</span>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.AvailableBooks, htmlAttributes: new { @class = "control-label" })
+                <div class="list-group">
+                    <select id="booksDDL" class="booksSelect text-capitalize">
+                        @foreach (var book in Model.AvailableBooks)
+                        {
+                            <option value="@book.BookId">@book.Title</option>
+                        }
+                    </select>
+                    <input type="button" value="Add Book" class="addBookBtn btn btn-sm btn-success" id="addBookBtn" />
+                    <table class="table table-striped text-capitalize table-responsive" id="bookTable">
+                        <tr>
+                            <th>ID</th>
+                            <th style="width: 50%">Title</th>
+                            @Html.ValidationSummary()
+                            <th>Borrow From</th>
+                            <th>Borrow Until</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            @Html.HiddenFor(m => m.BookIds, new { @id = "hiddenInputForBookId" })
+            @Html.HiddenFor(m => m.BorrowingDates, new { @id = "hiddenInputForDates" })
+            <div class="col">
+            </div>
+        </div>
+        <div id="dateComparisonValidationMessage" class="alert alert-danger"></div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" id="submit" onclick="return checkBooks() && compareDates();" value="Borrow" class="btn btn-success" />*@
+                <input type="submit" id="submit" onclick="return checkBooks();" value="Borrow" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLongTitle">Change personal information</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Personal Id</label>
+                                @Html.TextBoxFor(m => m.Client.Personal_Id, new { @type = "number", @class = "form-control", @id = "modalpersonalId", @placeholder = "Personal Card", @min = "1", @minlength = "11", @maxlength = "11" })
+                                @Html.ValidationMessageFor(m => m.PersonalId)
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                @Html.TextBoxFor(m => m.FirstName, new { @type = "text", @class = "form-control", @id = "modalfirstName", @placeholder = "Enter Name" })
+                                @Html.ValidationMessageFor(m => m.FirstName)
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                @Html.TextBoxFor(m => m.LastName, new { @type = "text", @class = "form-control", @id = "modallastName", @placeholder = "Last Name" })
+                                @Html.ValidationMessageFor(m => m.LastName)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "modalInputEmail", @placeholder = "Enter email" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="PhoneNumber">Phone Number</label>
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @type = "tel", @class = "form-control", @id = "modalPhonNumber", @placeholder = "Phone Number" })
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Address</label>
+                                @Html.TextBoxFor(m => m.Address, new { @type = "text", @class = "form-control", @id = "modalAddress", @placeholder = "Address" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" id="updateFieldsModal">Submit</button>
+                    </div>
+                    @Html.HiddenFor(m => m.Client.Id, new { @id = "ID" })
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/addBookIdsToHiddenInputField.js"></script>
+<script src="~/Scripts/checkBooksNotEmpty.js"></script>
+<script src="~/Scripts/compareDatesClientBorrowingBook.js"></script>
+
+<script>
+    $("#updateValues").click(function () {
+        var pID = $('#personal_id').val();
+        $.ajax({
+            type: "GET",
+            url: "/api/client/fillclientdata",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { 'personalId': pID },
+            success: function (response) {
+                if (response != null) {
+                    $('#modalpersonalId').val(response.personalId);
+                    $('#modalfirstName').val(response.firstname);
+                    $('#modallastName').val(response.lastname);
+                    $('#modalInputEmail').val(response.email);
+                    $('#modalPhonNumber').val(response.phoneNumber);
+                    $('#modalAddress').val(response.address);
+                } else if (response == null) {
+                    alert("Welcome, Please add your data by clicking the UPDATE FIELDS button");
+                }
+            },
+        });
+    });
+</script>
+<script>
+    //var ID = $("#ID");
+    var firstName = $("#modalfirstName");
+    var lastName = $("#modallastName");
+    var personalId = $("#modalpersonalId");
+    var email = $("#modalInputEmail");
+    var phoneNumber = $("#modalPhonNumber");
+    var address = $("#modalAddress");
+    var myFunction = function (pId) {
+        var pID = pId;
+        $.ajax({
+            type: "GET",
+            url: "/api/client/fillclientdata",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { 'personalId': pID },
+            success: function (response) {
+                if (response != null) {
+                    $('#personal_id').val(response.personalId);
+                    $('#firstname').val(response.firstname);
+                    $('#lastname').val(response.lastname);
+                    $('#email').val(response.email);
+                    $('#phone').val(response.phone);
+                    $('#address').val(response.address);
+                } else if (response == null) {
+                    alert("Welcome, Please add your data by clicking the UPDATE FIELDS button");
+                }
+            },
+        });
+    };
+    $("#updateFieldsModal").on("click", function () {
+        //$('#exampleModalCenter').modal('hide');
+        var clientViewModel = {
+            firstName: firstName.val(),
+            lastName: lastName.val(),
+            personalId: personalId.val(),
+            email: email.val(),
+            phoneNumber: phoneNumber.val(),
+            address: address.val(),
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/api/client/SaveClient",
+            data: clientViewModel,
+            success: function (response) {
+                myFunction(clientViewModel.personalId);
+                if (response != null && response.firstname != "") {
+                    $('#personal_id').val(response.personalId);
+                    $('#firstname').val(response.firstname);
+                    $('#lastname').val(response.lastname);
+                    $('#email').val(response.email);
+                    $('#phone').val(response.phoneNumber);
+                    $('#address').val(response.address);
+                }
+            }
+        });
+    });
+    //12345678911
+</script>
+<script>
+    $(function () {
+        $("#checkId").click(function () {
+            var pID = $('#personal_id').val();
+            $.ajax({
+                type: "GET",
+                url: "/api/client/fillclientdata",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: { 'personalId': pID },
+                success: function (response) {
+                    if (response != null && response.firstname != "") {
+                        $('#firstname').val(response.firstname);
+                        $('#lastname').val(response.lastname);
+                        $('#email').val(response.email);
+                        $('#phone').val(response.phoneNumber);
+                        $('#address').val(response.address);
+                    } else {
+                        alert("Welcome, Please add your data by clicking the UPDATE FIELDS button");
+                    }
+                },
+                error: function (response) {
+                    alert("ERROR 404)");
+                }
+            });
+        });
+    });
+</script>

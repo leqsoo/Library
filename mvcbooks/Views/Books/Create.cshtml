@@ -1,0 +1,149 @@
+﻿@model mvcbooks.Models.BookViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+<h2>Create new Book</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col">
+                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @id = "year", @onblur = "validateYear();", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col">
+                @Html.LabelFor(model => model.TotalQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group">
+                    @Html.EditorFor(model => model.TotalQuantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TotalQuantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+
+            <div class="col">
+                @Html.LabelFor(model => model.Authors, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="list-group">
+                    <select id="authorsDDL" class="authorsSelect">
+                        @foreach (var item in Model.Authors)
+                        {
+                            <option value="@item.AuthorId">@item.Name</option>
+                        }
+
+                    </select>
+                    <input type="button" value="Add Author" class="addAuthorBtn btn btn-sm btn-success" id="addAuthorBtn" />
+                    <table class="table table-striped table-responsive" id="authorTable">
+                        <tr>
+                            <th>ID</th>
+                            <th>Author</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.AuthorIds, new { @id = "hiddenInputForAuthorId" })
+
+
+
+
+            <div class="col">
+                @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="list-group">
+                    <select id="genresDDL" class="genresSelect">
+                        @foreach (var item in Model.Genres)
+                        {
+                            <option value="@item.GenreId">@item.GenreName</option>
+                        }
+
+                    </select>
+                    <input type="button" value="Add Genre" class="addGenreBtn btn btn-sm btn-success" id="addGenreBtn" />
+                    <table class="table table-striped table-responsive" id="genreTable">
+                        <tr>
+                            <th>ID</th>
+                            <th>Genre</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.GenreIds, new { @id = "hiddenInputForGenreId" })
+
+        </div>
+
+        <div id="validateMessage" class="alert alert-danger col-md-4 col-md-offset-4"></div>
+
+        <div class="row">
+            <div class="form-group col">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="submit" onclick="return checkAuthorsAndGenres() && validateYear();" value="Create" class="btn btn-success" />
+                </div>
+                <div class="float-right font-weight-bold text-danger">
+                    @Html.ValidationMessageFor(model => model.AuthorIds)
+                    @if (@ViewData.ModelState["AuthorsNull"] != null && @ViewData.ModelState["AuthorsNull"].Errors.Count > 0)
+                    {
+                        <br />
+                        <span class="field-validation-error col">
+                            @ViewData.ModelState["AuthorsNull"].Errors[0].ErrorMessage.Trim()
+                        </span>
+                    }
+
+                    @Html.ValidationMessageFor(model => model.GenreIds)
+                    @if (@ViewData.ModelState["GenresNull"] != null && @ViewData.ModelState["GenresNull"].Errors.Count > 0)
+                    {
+                        <br />
+                        <span class="field-validation-error col">
+                            @ViewData.ModelState["GenresNull"].Errors[0].ErrorMessage.Trim()
+                        </span>
+                    }
+                </div>
+            </div>
+            <div class="col"></div>
+
+
+        </div>
+    </div>
+
+    <div>
+        @Html.Partial("_BackToListButtonPartial")
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/checkAuthorsAndGenresNotEmpty.js"></script>
+<script src="~/Scripts/addGenreIdsToHiddenInputField.js"></script>
+<script src="~/Scripts/addAuthorIdsToHiddenInputField.js"></script>
+<script src="~/Scripts/validateYearField.js"></script>

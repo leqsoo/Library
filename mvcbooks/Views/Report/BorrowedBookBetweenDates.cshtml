@@ -1,0 +1,82 @@
+﻿@using mvcbooks.Data
+@model List<BorrowedBookBetweenDates_Result>
+@{
+    ViewBag.Title = "BorrowedBookBetweenDates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a class="float-right" href='@Url.Action("BorrowedBookBetweenDatesToExcel", new
+{
+                    BorrowedBookBetweenDatesDateFrom = Request.QueryString["BorrowedBookBetweenDatesDateFrom"],
+                    BorrowedBookBetweenDatesDateTo = Request.QueryString["BorrowedBookBetweenDatesDateTo"]
+})'>
+    <img src="~/Content/themes/base/images/Microsoft-Excel-2013-icon.png" title="Report to Excel"/>
+</a>
+<a class="float-right" href='@Url.Action("BorrowedBookBetweenDatesToPDF", new
+{
+                    BorrowedBookBetweenDatesDateFrom = Request.QueryString["BorrowedBookBetweenDatesDateFrom"],
+                    BorrowedBookBetweenDatesDateTo = Request.QueryString["BorrowedBookBetweenDatesDateTo"]
+})'>
+    <img src="~/Content/themes/base/images/Adobe-PDF-Document-icon.png" title="Report to Pdf"/>
+</a>
+<h2>BorrowedBookBetweenDates</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Title", "BorrowedBookBetweenDates", new
+                {
+                    sortBy = ViewBag.SortTitleParameter,
+                    BorrowedBookBetweenDatesDateFrom = Request.QueryString["BorrowedBookBetweenDatesDateFrom"],
+                    BorrowedBookBetweenDatesDateTo = Request.QueryString["BorrowedBookBetweenDatesDateTo"]
+                })
+            </th>
+            <th>
+                @Html.ActionLink("First Name", "BorrowedBookBetweenDates", new
+                {
+                    sortBy = ViewBag.SortByFirst_NameParameter,
+                    BorrowedBookBetweenDatesDateFrom = Request.QueryString["BorrowedBookBetweenDatesDateFrom"],
+                    BorrowedBookBetweenDatesDateTo = Request.QueryString["BorrowedBookBetweenDatesDateTo"]
+                })
+            </th>
+            <th>
+                @Html.ActionLink("Last Name", "BorrowedBookBetweenDates", new
+                {
+                    sortBy = ViewBag.SortByLast_NameParameter,
+                    BorrowedBookBetweenDatesDateFrom = Request.QueryString["BorrowedBookBetweenDatesDateFrom"],
+                    BorrowedBookBetweenDatesDateTo = Request.QueryString["BorrowedBookBetweenDatesDateTo"]
+                })
+            </th>
+            <th>
+                @Html.ActionLink("Year", "BorrowedBookBetweenDates", new
+                {
+                    sortBy = ViewBag.SortByYearParameter,
+                    BorrowedBookBetweenDatesDateFrom = Request.QueryString["BorrowedBookBetweenDatesDateFrom"],
+                    BorrowedBookBetweenDatesDateTo = Request.QueryString["BorrowedBookBetweenDatesDateTo"]
+                })
+            </th>
+            <th>
+                @Html.ActionLink("Left Quantity", "BorrowedBookBetweenDates", new
+                {
+                    sortBy = ViewBag.SortByLeft_QuantityParameter,
+                    BorrowedBookBetweenDatesDateFrom = Request.QueryString["BorrowedBookBetweenDatesDateFrom"],
+                    BorrowedBookBetweenDatesDateTo = Request.QueryString["BorrowedBookBetweenDatesDateTo"]
+                })
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr class="row-color">
+                <td>@book.Title</td>
+                <td>@book.First_Name</td>
+                <td>@book.Last_Name</td>
+                <td>@book.Year</td>
+                <td class="left-quantity">@book.Left_Quantity</td>
+                @Html.HiddenFor(bookTotalQuantity => book.Total_Quantity, new { @class = "total-quantity" })
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/colorMaker.js"></script>

@@ -1,0 +1,294 @@
+﻿th {
+    cursor: pointer;
+}
+
+body {
+    padding-top: 50px;
+}
+
+.availability0 {
+    background-color: rgba(255,99,71, 0.8);
+}
+
+.availability0-25 {
+    background-color: rgba(255, 255, 51, 0.6);
+}
+
+.availability25-75 {
+    background-color: lightblue;
+}
+
+.availability75-100 {
+    background-color: rgba(153, 255, 51, 0.8);
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.bold-font {
+    font-weight: bold;
+}
+.mt {
+    margin-top:10px;
+}
+
+
+header .logo:hover {
+    cursor: pointer;
+}
+div .mycontainer {
+    background: url(/Images/header_bg.png) no-repeat center;
+}
+
+
+ul {
+    font-size: 20px;
+    margin:10px; 
+}
+
+.table-responsive {
+    display: table;
+}
+.sidenav li{
+    list-style-type:none;
+      
+
+}
+.my-class {
+    text-decoration:none;
+    color:white;
+    padding: 9px;
+}
+
+button .white-link {
+    color: white;
+}
+
+.my-class:hover {
+    text-decoration:none;
+    color:lightgray;
+
+}
+.active {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 8px;
+    background-color: rgba(255,99,71, 0.9);
+    text-decoration: underline;
+}
+
+.navbar {
+    transition: 0.5s;
+}
+nav, nav .captoin {
+    font-size: 25px;
+}
+.content {
+    margin-top:150px;
+    font-size:18px;
+}
+
+.container h2 {
+    color:white;
+}
+
+table tr {
+font-size:18px;
+
+}
+table  {
+    margin-bottom:80px;
+}
+.booksTable td {
+    text-transform: capitalize;
+}
+
+.ui-datepicker-header {
+    background: #3399ff;
+    color: #ffffff;
+}
+
+.ui-datepicker-title {
+    text-align: center;
+    font-size: 18px
+}
+
+.ui-datepicker-calendar .ui-state-default {
+    background: #3399ff;
+    color: #ffffff;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+}
+
+.ui-datepicker-calendar .ui-state-hover {
+    background: #33adff;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+    background: #ff924a;
+    cursor: pointer;
+}
+
+select.ui-datepicker-month,
+select.ui-datepicker-year, .ui-datepicker-next:hover, .ui-datepicker-prev:hover {
+    background: #eee;
+    cursor: pointer;
+}
+
+.ui-datepicker {
+    background: #f5f5f5;
+}
+
+footer {
+    width: 100%;
+    height: 80px;
+    margin-top: 200px;
+    background: #ccc;
+}
+.edit-font {
+    font-size: 18px;
+}
+
+#validateMessage {
+    display: none;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.booksTable {
+    position:relative;
+    z-index: 1;
+}
+
+.yearContainer {
+    max-height: 350px;
+    width: 70px;
+    overflow-y: scroll;
+    border: 1px solid grey;
+    position: absolute;
+    top: 41px;
+    z-index: 99;
+    background-color: #eee;
+}
+
+.yearContainer::-webkit-scrollbar {
+    width: 20px;
+}
+
+.yearContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 2px 2px 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.yearContainer::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.yearContainer span {
+    margin-top: 2px;
+    margin-left: 4px;
+    display: flex;
+}
+
+.yearContainer span:hover {
+    cursor: pointer;
+    background: rgba(0,0,0,0.1);
+}
+
+.hide, #dateComparisonValidationMessage {
+    display: none;
+}
+
+.btn, .fa-calendar {
+    cursor: pointer;
+}
+
+.descript {
+    max-width: 400px;
+}
+
+.ui-autocomplete {
+    overflow: auto;
+    max-height: 400px;
+    max-width: 80px;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 992px) {
+    ul{
+        display:inline;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .booksTable::before {
+        content: "Scroll table right to left";
+        font-weight: bold;
+        font-size: 20px;
+        margin: 4px;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .btn-responsive {
+        padding: 4px 6px;
+        font-size: 90%;
+        line-height: 1;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+        
+    header h2 {
+        font-size: 25px;
+    }
+
+    .sidenav li {
+        font-size: 18px;
+    }
+
+    .responsive-font {
+        font-size: 16px;
+    }
+
+    .small-font {
+        font-size: 14px;
+    }
+}
+
+
+.validation-summary-errors {
+    list-style-type: none;
+    color: red;
+    padding: 0;
+}
+
+.field-validation-error{
+    color: red;
+}

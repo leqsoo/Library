@@ -1,0 +1,42 @@
+﻿@model mvcbooks.Data.Genre
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create new Genre</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="validateMessage" class="alert alert-danger" style="width:50%; margin:0 auto"></div>
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Genre", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Genre_Name, new { htmlAttributes = new { @class = "form-control checkEmpty" } })
+                @Html.ValidationMessageFor(model => model.Genre_Name, "", new { @class = "text-danger" })
+                <h4 class="text-danger">@ViewBag.Message</h4>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" id="submit" onclick="return validateForEmpty();" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.Partial("_BackToListButtonPartial")
+</div>
+
+<script src="~/Scripts/emptyAuthorOrGenreOnUpdate.js"></script>

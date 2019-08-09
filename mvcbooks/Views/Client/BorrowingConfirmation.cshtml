@@ -1,0 +1,24 @@
+﻿@model mvcbooks.Data.Client
+
+@{
+    ViewBag.Title = "Borrowing Confirmation";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h3>@ViewBag.Message</h3>
+    </div>
+
+    <p>
+        <br /><br />
+        @Html.ActionLink("Return to Book List", "Index", "Books")
+    </p>
+</body>
+</html>

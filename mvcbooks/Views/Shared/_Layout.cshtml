@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/tablesorter/jquery.tablesorter")
+    @Styles.Render("~/Content/themes/base/css")
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-inverse fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href='@Url.Action("Index","Books")'>
+                <img class="logo" src="~/Images/logos.png" />
+            </a>
+            <span class="text-white captoin">Book Library</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                <ul class="navbar-nav  ml-auto">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Home", "Index", "Books", null, new { @class = "my-class" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Borrow Book", "Index", "Client", null, new { @class = "my-class" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Return Book", "ReturnBookList", "ReturnBook", null, new { @class = "my-class" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Report", "Report", "Report", null, new { @class = "my-class" })
+                    </li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink("Authors", "Index", "Authors", null, new { @class = "my-class" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Genres", "Index", "Genres", null, new { @class = "my-class" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Why Us?", "Index", "Home", null, new { @class = "my-class" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("About", "About", "Home", null, new { @class = "my-class" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "my-class" })
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid  body-content">
+        <div class="content">
+            @RenderBody()
+        </div>
+
+        <hr />
+        @RenderSection("footer", required: false)
+    </div>
+
+
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <footer>
+        <p>&copy; @DateTime.Now.Year Saatec.com</p>
+    </footer>
+</body>
+</html>
+
+<script src="~/Scripts/activeClassNavBar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+

@@ -1,0 +1,47 @@
+﻿@using mvcbooks.Data
+@model IEnumerable<BorowedBookList_Result>
+@{
+    ViewBag.Title = "ReturnBookList";
+}
+
+<h2>Return Book List</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Title", "ReturnBookList", new { sortBy = ViewBag.SortByTitleParameter })
+            </th>
+            <th>@Html.ActionLink("First Name", "ReturnBookList", new { sortBy = ViewBag.SortByFirst_NameParameter })</th>
+            <th>@Html.ActionLink("Last Name", "ReturnBookList", new { sortBy = ViewBag.SortByLast_NameParameter })</th>
+            <th>@Html.ActionLink("Year", "ReturnBookList", new { sortBy = ViewBag.SortByYearParameter })</th>
+            <th>@Html.ActionLink("Left Quantity", "ReturnBookList", new { sortBy = ViewBag.SortByLeft_QuantityParameter })</th>
+            <th>Return Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.ValidationSummary()
+        @foreach (var book in Model)
+        {
+            <tr class="row-color">
+                <td>@book.Title</td>
+                <td>@Html.Raw(book.First_Name.Replace(",", " <br/> "))</td>
+                <td>@Html.Raw(book.Last_Name.Replace(",", " <br/> "))</td>
+                <td>@book.Year</td>
+                <td class="left-quantity">@book.Left_Quantity</td>
+                @Html.Hidden("bookTotalQuantity", book.Total_Quantity, new { @class = "total-quantity" })
+
+                @using (Html.BeginForm("ReturnBook", "ReturnBook", FormMethod.Post))
+                {
+                    @Html.Hidden("id", book.Book_Id)
+                    @Html.Hidden("ClientId", book.Client_Id)
+                    <td>@Html.TextBox("returnDate", null, "{0:d/M/yyyy HH:mm:ss}", new { @type = "date", @class = "form-control valid", @data_val = "true", @data_val_required = "Return Date is required" })</td>
+                    <td><button type="submit" class="btn btn-primary">Return</button></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/colorMaker.js"></script>

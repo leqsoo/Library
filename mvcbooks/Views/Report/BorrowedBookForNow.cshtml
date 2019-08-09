@@ -1,0 +1,65 @@
+﻿@using mvcbooks.Data
+@model List<BorrowedBookForNow_Result>
+@{
+    ViewBag.Title = "BorrowedBookByDateNow";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a class="float-right" href='@Url.Action("BorrowedBookForNowToExcel")'>
+    <img src="~/Content/themes/base/images/Microsoft-Excel-2013-icon.png" title="Report to Excel" />
+</a>
+<a class="float-right" href='@Url.Action("BorrowedBookForNowToPDF")'>
+    <img src="~/Content/themes/base/images/Adobe-PDF-Document-icon.png" title="Report to Pdf" />
+</a>
+<h2>For Now Borrowed Books</h2>
+<table class="table table-bordered table-hover" id="booksTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Title", "BorrowedBookForNow", new { sortBy = ViewBag.SortByTitleParameter })
+            </th>
+            <th>@Html.ActionLink("First Name", "BorrowedBookForNow", new { sortBy = ViewBag.SortByFirst_NameParameter })</th>
+            <th>@Html.ActionLink("Last Name", "BorrowedBookForNow", new { sortBy = ViewBag.SortByLast_NameParameter })</th>
+            <th>@Html.ActionLink("Year", "BorrowedBookForNow", new { sortBy = ViewBag.SortByYearParameter })</th>
+            <th>@Html.ActionLink("Left Quantity", "BorrowedBookForNow", new { sortBy = ViewBag.SortByLeft_QuantityParameter })</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr class="row-color">
+                <td>@book.Title</td>
+                <td>@book.First_Name</td>
+                <td>@book.Last_Name</td>
+                <td>@book.Year</td>
+                <td class="left-quantity">@book.Left_Quantity</td>
+                @Html.HiddenFor(bookTotalQuantity => book.Total_Quantity, new { @class = "total-quantity" })
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/colorMaker.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/DropDownYear.js"></script>
+<script src="~/Scripts/validateDateSearch.js"></script>
+<script src="~/Scripts/tablesorter/jquery.tablesorter.combined.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+@*<script>
+    $(document).ready(function () {
+        $('#booksTable').DataTable({
+            ajax: {
+                "url": "/Report/BorrowedBookForNow",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "Title" },
+                { "data": "First Name" },
+                { "data": "Last Name" },
+                { "data": "Year" },
+                { "data": "Left Quantity" },
+            ]
+        });
+    });
+</script>*@

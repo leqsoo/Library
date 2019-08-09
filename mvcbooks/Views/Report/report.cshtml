@@ -1,0 +1,48 @@
+﻿@model mvcbooks.Models.ReportViewModel
+@{
+    ViewBag.Title = "report";
+}
+<br />
+<h2>report</h2>
+@using (Html.BeginForm("BorrowedAndReternedBooks", "Report", FormMethod.Get))
+{
+    @Html.Label("Borrowed And Reterned Books")
+    <div class="form-group">
+        @Html.LabelFor(m => m.BorrowedAndReternedBooksDateFrom)
+        @Html.TextBoxFor(m => m.BorrowedAndReternedBooksDateFrom, new { @type = "date", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.BorrowedAndReternedBooksDateFrom, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BorrowedAndReternedBooksDateTo)
+        @Html.TextBoxFor(m => m.BorrowedAndReternedBooksDateTo, new { @type = "date", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.BorrowedAndReternedBooksDateTo, null, new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary">Find</button>
+}
+<br />
+@using (Html.BeginForm("BorrowedBookBetweenDates", "Report", FormMethod.Get))
+{
+    @Html.Label("Borrowed Books Between Dates")
+    <div class="form-group">
+        @Html.LabelFor(m => m.BorrowedBookBetweenDatesDateFrom)
+        @Html.TextBoxFor(m => m.BorrowedBookBetweenDatesDateFrom, new { @type = "date", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.BorrowedBookBetweenDatesDateFrom, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BorrowedBookBetweenDatesDateTo)
+        @Html.TextBoxFor(m => m.BorrowedBookBetweenDatesDateTo, new { @type = "date", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.BorrowedBookBetweenDatesDateTo, null, new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-primary">Find</button>
+}
+<br />
+@using (Html.BeginForm("BorrowedBookForNow", "Report", FormMethod.Get))
+{
+    @Html.Label("Borrowed Books For Now", new { @class = "Form-control" })
+    <br />
+    <button type="submit" class="btn btn-primary">Find</button>
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

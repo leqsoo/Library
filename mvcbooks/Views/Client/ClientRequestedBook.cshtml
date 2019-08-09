@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Client---";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    @if (TempData["UserMessage"] != null)
+    {
+        var message = TempData["UserMessage"];
+        <p> @message.ToString() </p>
+    }
+</body>
+</html>
